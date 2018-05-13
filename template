@@ -1,0 +1,1 @@
+service_repo_name=SRN&ip=$ip&port=$PROXY_HOST_PORT&revision=REVISION&tags={"region":"$region","az":"$az","instance_id":"$instance_id"}
