@@ -6,10 +6,18 @@ function aws-meta() {
 }
 
 function init-aws() {
+	export instance_id=$(aws-meta instance-id)
 	export ip=$(aws-meta local-ipv4)
 	export az=$(aws-meta placement/availability-zone)
-	export region=${az:0:-1}
-	export instance_id=$(aws-meta instance-id)
+	if [ ${#instance_id} -eq 0 -o ${#ip} -eq 0 -o ${#az} -eq 0 ]
+	then
+		export instance_id=""
+		export ip=""
+		export az=""
+		export region=""
+	else
+		export region=${az:0:-1}
+	fi
 }
 
 function init-docker() {
