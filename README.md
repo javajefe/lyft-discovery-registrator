@@ -8,3 +8,4 @@ Environment variables for Docker container:
 * `PROXY_HOST_PORT` - port of the proxy for ingress traffic
 * `SERVICE_NAME` - name of the service
 * `REFRESH_INTERVAL` - refresh interval in seconds, default is 10
+* `METRICS_PORTS` - comma separated list of ports there metrics could be found, default is `8001,10000`
