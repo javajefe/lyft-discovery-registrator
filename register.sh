@@ -22,9 +22,9 @@ function init-aws() {
 
 function init-docker() {
 	export ip=$(dig +short $1 | head -n 1)
-	export az=zzz
-	export region=rrr
-	export instance_id=iii
+	export az=AZ
+	export region=REGION
+	export instance_id=$1
 }
 
 while true
@@ -38,13 +38,14 @@ do
 	
 	if [ ${#ip} -ne 0 ]
 	then
+		export metrics_ports=$METRICS_PORTS
 		envsubst < template > service.post
-		echo Registering $SERVICE_NAME with address $ip:$PROXY_HOST_PORT:
+		echo Registering $SERVICE_NAME/$PROXY_NETWORK_ALIAS with address $ip:$PROXY_HOST_PORT:
 		cat service.post
 
 		curl -vs -X POST -d @service.post $DISCOVERY_URL/v1/registration/$SERVICE_NAME
 	else
-		echo Can not find IP. Check the proxy container is running... 
+		echo Can not find IP for $SERVICE_NAME/$PROXY_NETWORK_ALIAS. Check the proxy container is running... 
 	fi
 	
 	sleep $REFRESH_INTERVAL
